@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network2" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="ExpectationBias">
+			<state id="Good" />
+			<state id="Poor" />
+			<probabilities>0.95 0.05000000000000004</probabilities>
+		</cpt>
+		<cpt id="Attention">
+			<state id="Good" />
+			<state id="Poor" />
+			<parents>ExpectationBias</parents>
+			<probabilities>0.95 0.05 0.7 0.3</probabilities>
+		</cpt>
+		<cpt id="Procedure_Quality">
+			<state id="Good" />
+			<state id="Poor" />
+			<probabilities>0.9 0.1</probabilities>
+		</cpt>
+		<cpt id="Data_discounted">
+			<state id="Error" />
+			<state id="NoError" />
+			<parents>ExpectationBias Attention Procedure_Quality</parents>
+			<probabilities>0.001 0.999 0.045 0.9550000000000001 0.08 0.92 0.06 0.9400000000000001 0.012 0.988 0.054 0.9460000000000001 0.04415243101182654 0.9558475689881734 0.2 0.8</probabilities>
+		</cpt>
+		<cpt id="HSI_output">
+			<state id="Good" />
+			<state id="Poor" />
+			<probabilities>0.9 0.1</probabilities>
+		</cpt>
+		<cpt id="Wrong_data_source">
+			<state id="Error" />
+			<state id="NoError" />
+			<parents>HSI_output Procedure_Quality Attention</parents>
+			<probabilities>1e-005 0.9999900000000001 0.02658884565499351 0.9734111543450065 0.0001 0.9999 0.05 0.9500000000000001 0.01 0.99 0.07205113306217316 0.9279488669378269 0.02 0.98 0.5 0.5</probabilities>
+		</cpt>
+		<deterministic id="Wrong_data_obtained">
+			<state id="Error" />
+			<state id="NoError" />
+			<parents>Wrong_data_source</parents>
+			<resultingstates>Error NoError</resultingstates>
+		</deterministic>
+		<deterministic id="Information_gathering_failure">
+			<state id="Error" />
+			<state id="NoError" />
+			<parents>Data_discounted Wrong_data_obtained</parents>
+			<resultingstates>Error Error Error NoError</resultingstates>
+		</deterministic>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.4535.0" name="HRA demo Posterior" faultnameformat="nodestate">
+			<node id="Data_discounted">
+				<name>Data discounted</name>
+				<interior color="00ccff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>167 231 319 311</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="ExpectationBias">
+				<name>ExpectationBias</name>
+				<interior color="99cc00" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>42 45 153 114</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Attention">
+				<name>Attention</name>
+				<interior color="99cc00" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>206 91 307 157</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Procedure_Quality">
+				<name>Procedure Quality</name>
+				<interior color="99cc00" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>359 49 456 109</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Wrong_data_source">
+				<name>Wrong data source</name>
+				<interior color="00ccff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>369 158 472 222</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Wrong_data_obtained">
+				<name>Wrong data obtained</name>
+				<interior color="00ccff" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>345 229 480 313</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="HSI_output">
+				<name>HSI Output</name>
+				<interior color="99cc00" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>487 46 614 112</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Information_gathering_failure">
+				<name>Information gathering failure</name>
+				<interior color="ffff00" />
+				<outline color="000000" />
+				<font color="000000" name="Arial" size="8" />
+				<position>268 350 364 410</position>
+				<barchart active="true" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
